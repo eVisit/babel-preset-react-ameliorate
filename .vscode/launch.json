@@ -9,8 +9,7 @@
       "request": "launch",
       "name": "Run Tests",
       "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
-      "args": ["--runInBand"],
-      "preLaunchTask": "build"
+      "args": ["--runInBand"]
     }
   ]
 }

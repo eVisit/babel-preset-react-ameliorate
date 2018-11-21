@@ -1,15 +1,13 @@
 const babel = require("@babel/core"),
       FS = require('fs'),
       PATH = require('path'),
-      presetReact = require('@babel/preset-react'),
-      presetReactAmeliorate = require('../lib');
+      presetReactAmeliorate = require('../src');
 
 const DEFAULT_BABEL_OPTIONS = {
   code: true,
   ast: false,
   babelrc: false,
   presets: [
-    presetReact,
     presetReactAmeliorate
   ]
 };
