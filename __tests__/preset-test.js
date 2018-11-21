@@ -3,34 +3,52 @@ const babel = require("@babel/core"),
       PATH = require('path'),
       presetReactAmeliorate = require('../src');
 
-const DEFAULT_BABEL_OPTIONS = {
-  code: true,
-  ast: false,
-  babelrc: false,
-  presets: [
-    presetReactAmeliorate
-  ]
-};
-
-function transform(code, extraOpts) {
+function transform(code, extraOpts, extraBabelOpts) {
   return new Promise((resolve, reject) => {
-    babel.transform(('' + code), Object.assign({}, DEFAULT_BABEL_OPTIONS, extraOpts || {}), function(error, result) {
-      if (error)
-        return reject(error);
+    var babelOpts = Object.assign({
+      code: true,
+      ast: false,
+      babelrc: false,
+      presets: [
+        [presetReactAmeliorate, Object.assign({}, extraOpts || {})]
+      ]
+    }, extraBabelOpts);
 
-      resolve(result);
-    });
+    babel.transform(
+      ('' + code),
+      babelOpts,
+      function(error, result) {
+        if (error)
+          return reject(error);
+
+        resolve(result);
+      }
+    );
   });
 }
 
-function transformFile(fileName) {
+function transformFile(fileName, extraOpts) {
   var fullFileName = (PATH.join(__dirname, 'test-code', fileName) + '.js');
-  return transform(FS.readFileSync(fullFileName), { filename: fullFileName });
+  return transform(FS.readFileSync(fullFileName), extraOpts, { filename: fullFileName });
 }
 
 describe('babel-preset-react-ameliorate', function () {
-  it('should work', async function() {
+  it('should work with default options', async function() {
     var result = await transformFile('test01');
+    expect(result.code).toMatchSnapshot();
+  });
+
+  it('should work with plugin options', async function() {
     debugger;
+    var result = await transformFile('test01', {
+      pluginOptions: {
+        '@babel/plugin-transform-react-jsx': {
+          pragma: '__somethingElseBro(this)'
+        }
+      }
+    });
+
+    expect(result.code.indexOf('__somethingElseBro')).toBeGreaterThan(-1);
+    expect(result.code).toMatchSnapshot();
   });
 });
