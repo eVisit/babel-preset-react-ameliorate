@@ -1,0 +1,36 @@
+{
+  "name": "babel-preset-react-ameliorate",
+  "version": "1.0.0",
+  "description": "Babel preset for react-ameliorate",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "node ./node_modules/@babel/cli/bin/babel src -d lib",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eVisit/babel-preset-react-ameliorate.git"
+  },
+  "keywords": [
+    "babel",
+    "preset",
+    "react"
+  ],
+  "author": "eVisit,LLC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eVisit/babel-preset-react-ameliorate/issues"
+  },
+  "homepage": "https://github.com/eVisit/babel-preset-react-ameliorate#readme",
+  "dependencies": {
+    "@babel/helper-plugin-utils": "^7.0.0-rc.1",
+    "babel-plugin-search-and-replace": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0-rc.1",
+    "@babel/preset-env": "^7.0.0-rc.1",
+    "@babel/preset-react": "^7.0.0-rc.1",
+    "jest": "^23.5.0"
+  }
+}
