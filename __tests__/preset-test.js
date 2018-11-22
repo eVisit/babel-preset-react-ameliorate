@@ -53,4 +53,41 @@ describe('babel-preset-react-ameliorate', function () {
     expect(result.code.indexOf('__somethingElseBro')).toBeGreaterThan(-1);
     expect(result.code).toMatchSnapshot();
   });
+
+  it('should work allow adding extra JSX properties', async function() {
+    var result = await transformFile('test01', {
+      pluginOptions: {
+        'transform-react-jsx-properties': {
+          props: {
+            customPropString: 'hello world!',
+            customPropBoolean: true,
+            customPropNumber: 5,
+            customPropArray: [
+              5,
+              true,
+              "derp!!!"
+            ],
+            customPropObject: {
+              sweet: 'stuff',
+              awesome: 453,
+              dude: 'crazy!'
+            }
+          }
+        }
+      }
+    });
+
+    expect(result.code.indexOf('customPropString')).toBeGreaterThan(-1);
+    expect(result.code.indexOf('customPropBoolean')).toBeGreaterThan(-1);
+    expect(result.code.indexOf('customPropNumber')).toBeGreaterThan(-1);
+    expect(result.code.indexOf('customPropArray')).toBeGreaterThan(-1);
+    expect(result.code.indexOf('derp!!!')).toBeGreaterThan(-1);
+    expect(result.code.indexOf('sweet')).toBeGreaterThan(-1);
+    expect(result.code.indexOf('stuff')).toBeGreaterThan(-1);
+    expect(result.code.indexOf('awesome')).toBeGreaterThan(-1);
+    expect(result.code.indexOf('453')).toBeGreaterThan(-1);
+    expect(result.code.indexOf('dude')).toBeGreaterThan(-1);
+    expect(result.code.indexOf('crazy!')).toBeGreaterThan(-1);
+    expect(result.code).toMatchSnapshot();
+  });
 });

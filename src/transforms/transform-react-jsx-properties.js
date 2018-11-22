@@ -29,7 +29,7 @@ function valueToASTLiteral(_value) {
     else if (thisType === 'boolean')
       return types.booleanLiteral(value);
     else if (thisType === 'number')
-      return types.numberLiteral(value);
+      return types.numericLiteral(value);
   }
 
   if (Array.isArray(value))
@@ -42,7 +42,7 @@ function valueToASTLiteral(_value) {
 
     return types.objectProperty(
       types.identifier(key),
-      valueToASTLiteral(value)
+      valueToASTLiteral(propValue)
     );
   }).filter(Boolean));
 }
