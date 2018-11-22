@@ -33,6 +33,7 @@ function getDefaultPlugins(context, opts) {
     loadPlugin(context, '@babel/plugin-transform-parameters',            opts),
     loadPlugin(context, '@babel/plugin-transform-shorthand-properties',  opts),
     loadPlugin(context, '@babel/plugin-transform-react-jsx',             opts),
+    loadPlugin(context, './transforms/transform-react-jsx-properties',   opts),
     loadPlugin(context, '@babel/plugin-transform-regenerator',           opts),
     loadPlugin(context, '@babel/plugin-transform-sticky-regex',          opts),
     loadPlugin(context, '@babel/plugin-transform-unicode-regex',         opts)

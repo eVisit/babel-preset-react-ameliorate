@@ -3,6 +3,9 @@ const babel = require("@babel/core"),
       PATH = require('path'),
       presetReactAmeliorate = require('../src');
 
+// Date mock
+require('jest-mock-now')()
+
 function transform(code, extraOpts, extraBabelOpts) {
   return new Promise((resolve, reject) => {
     var babelOpts = Object.assign({
@@ -39,7 +42,6 @@ describe('babel-preset-react-ameliorate', function () {
   });
 
   it('should work with plugin options', async function() {
-    debugger;
     var result = await transformFile('test01', {
       pluginOptions: {
         '@babel/plugin-transform-react-jsx': {

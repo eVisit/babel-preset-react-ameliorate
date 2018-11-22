@@ -82,8 +82,8 @@ function loadPlugin(context, name, opts, condition) {
     return null;
 
   var altName = name;
-  if (altName === './transforms/transform-symbol-member')
-    altName = 'transform-symbol-member';
+  if (altName.indexOf('./transforms/') === 0)
+    altName = altName.substring('./transforms/'.length);
 
   return [
     require(name),
