@@ -30,9 +30,6 @@ function getPluginOptions(_context, pluginName, _opts) {
         '@babel/plugin-proposal-class-properties': {
           loose: true
         },
-        '@babel/plugin-transform-react-jsx': {
-          pragma: '__JSXCreateElement(this)'
-        },
         '@babel/plugin-transform-modules-commonjs': {
           strict: false,
           strictMode: false, // prevent "use strict" injections
