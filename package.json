@@ -57,6 +57,7 @@
     "@babel/plugin-transform-typescript": "^7.1.0",
     "@babel/plugin-transform-unicode-regex": "^7.0.0",
     "@babel/template": "^7.1.2",
+    "appcenter-cli": "^1.1.0",
     "metro-babel7-plugin-react-transform": "^0.49.2",
     "react-transform-hmr": "^1.0.4"
   },

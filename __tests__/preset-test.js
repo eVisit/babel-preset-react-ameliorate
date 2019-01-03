@@ -4,7 +4,24 @@ const babel = require("@babel/core"),
       presetReactAmeliorate = require('../src');
 
 // Date mock
-require('jest-mock-now')()
+require('jest-mock-now')();
+
+const baseProps = {
+  id: '__ID__',
+  customPropString: 'hello world!',
+  customPropBoolean: true,
+  customPropNumber: 5,
+  customPropArray: [
+    5,
+    true,
+    "derp!!!"
+  ],
+  customPropObject: {
+    sweet: 'stuff',
+    awesome: 453,
+    dude: 'crazy!'
+  }
+};
 
 function transform(code, extraOpts, extraBabelOpts) {
   return new Promise((resolve, reject) => {
@@ -58,21 +75,20 @@ describe('babel-preset-react-ameliorate', function () {
     var result = await transformFile('test01', {
       pluginOptions: {
         'transform-react-jsx-properties': {
-          props: {
-            customPropString: 'hello world!',
-            customPropBoolean: true,
-            customPropNumber: 5,
-            customPropArray: [
-              5,
-              true,
-              "derp!!!"
-            ],
-            customPropObject: {
-              sweet: 'stuff',
-              awesome: 453,
-              dude: 'crazy!'
+          elements: [
+            {
+              test: '^.*$',
+              props: baseProps
+            },
+            {
+              test: '^div$',
+              props: { elementType: 'div' }
+            },
+            {
+              test: '^span$',
+              props: { elementType: 'span' }
             }
-          }
+          ]
         }
       }
     });

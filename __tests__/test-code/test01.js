@@ -6,7 +6,10 @@ class MyTestComponent extends React.Component {
 
     return (
       <div hello={true} {...opts}>
-        <span stuff>Hello world!</span>
+        <React.Fragment>
+          <span stuff>Hello world!</span>
+          <derp/>
+        </React.Fragment>
       </div>
     );
   }

@@ -47,27 +47,72 @@ function valueToASTLiteral(_value) {
   }).filter(Boolean));
 }
 
-module.exports = pluginUtils.declare((api, opts) => {
+function getMatchingPropsMerged(nodeName, elements) {
+  var props = {};
+
+  for (var i = 0, il = elements.length; i < il; i++) {
+    var element = elements[i],
+        matcher = (typeof element.test === 'string') ? new RegExp(element.test) : element.test;
+
+    if (!element.test)
+      throw new TypeError('"elements[*].type" option for plugin must be a valid regular expression or string');
+
+    matcher.lastIndex = 0;
+    if (!matcher.test(nodeName))
+      continue;
+
+    if (!element.props)
+      continue;
+
+    Object.assign(props, element.props);
+  }
+
+  return props;
+}
+
+module.exports = pluginUtils.declare((api, _opts) => {
   api.assertVersion(7);
 
-  var props = Object.assign({}, opts.props || {});
-  var idCounter = Date.now();
+  var opts            = _opts || {},
+      elements        = opts.elements || [],
+      startElementID  = opts.startElementID;
+
+  if (elements && !(elements instanceof Array))
+    throw new TypeError('"elements" option for plugin must be an array with the schema: [{ test: String|RegExp, props: { ... } }, ... ]');
+
+  if (typeof startElementID === 'function')
+    startElementID = startElementID(api, props);
+
+  var idCounter = startElementID || Date.now();
 
   const visitor = {
     JSXOpeningElement({ node }) {
-      props['data-ra-id'] = ('' + idCounter++);
+      var nodeName = node.name;
 
-      var keys = Object.keys(props);
+      if (nodeName.type === 'JSXIdentifier')
+        nodeName = nodeName.name;
+      else if (nodeName.type === 'JSXMemberExpression')
+        nodeName = [ nodeName.object.name, nodeName.property.name ].join('.');
+
+      var isFragment  = (nodeName === 'Fragment' || nodeName === 'React.Fragment'),
+          props       = getMatchingPropsMerged(nodeName, elements),
+          keys        = Object.keys(props);
+
       for (var i = 0, il = keys.length; i < il; i++) {
-        var key = keys[i],
+        var key       = keys[i],
             propValue = props[key];
+
+        if (isFragment && key !== 'key')
+          continue;
+
+        if (propValue === '__ID__')
+          propValue = ('' + idCounter++);
 
         var jsxValue = valueToASTLiteral(propValue);
         if (jsxValue === undefined)
           continue;
 
         var jsxKey = types.jsxIdentifier(key);
-
         node.attributes.push(types.jsxAttribute(jsxKey, types.jsxExpressionContainer(jsxValue)));
       }
     }
