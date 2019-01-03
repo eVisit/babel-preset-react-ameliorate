@@ -21,7 +21,18 @@ Then, create a file called `.babelrc` in your project's root directory. The exis
 
 ```
 {
-  "presets": ["module:babel-preset-react-ameliorate"]
+  "presets": ["module:babel-preset-react-ameliorate", {
+    startElementID: Number|Function,          // optional start element id for internal id counter
+    elements: [
+      {
+        test: String|RegExp,                  //regular expression
+        props: {                              // extra JSX properties to add to matched elements
+          myCustomStaticElementID: '__ID__',  // __ID__ is a special value that will be expanded to the internal id counter
+          anyPropName: Array|Object|String|Number|Boolean
+        }
+      }
+    ]
+  }]
 }
 ```
 

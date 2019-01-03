@@ -52,7 +52,7 @@ function getMatchingPropsMerged(nodeName, elements) {
 
   for (var i = 0, il = elements.length; i < il; i++) {
     var element = elements[i],
-        matcher = (typeof element.test === 'string') ? new RegExp(element.test) : element.test;
+        matcher = (typeof element.test === 'string' || element.test instanceof String) ? new RegExp(element.test) : element.test;
 
     if (!element.test)
       throw new TypeError('"elements[*].type" option for plugin must be a valid regular expression or string');
