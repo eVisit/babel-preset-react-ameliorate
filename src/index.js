@@ -18,25 +18,25 @@ const pluginUtils       = require('@babel/helper-plugin-utils'),
 
 function getDefaultPlugins(context, opts) {
   var defaultPlugins = [
-    loadPlugin(context, '@babel/plugin-proposal-optional-catch-binding', opts),
-    loadPlugin(context, '@babel/plugin-transform-block-scoping',         opts),
+    loadPlugin(context, '@babel/plugin-proposal-optional-catch-binding',      opts),
+    loadPlugin(context, '@babel/plugin-transform-block-scoping',              opts),
     // the flow strip types plugin must go BEFORE class properties!
     // there'll be a test case that fails if you don't.
-    loadPlugin(context, '@babel/plugin-transform-flow-strip-types',      opts),
-    loadPlugin(context, '@babel/plugin-proposal-class-properties',       opts),
-    loadPlugin(context, '@babel/plugin-syntax-dynamic-import',           opts),
-    loadPlugin(context, '@babel/plugin-syntax-export-default-from',      opts),
-    loadPlugin(context, '@babel/plugin-transform-computed-properties',   opts),
-    loadPlugin(context, '@babel/plugin-transform-destructuring',         opts),
-    loadPlugin(context, '@babel/plugin-transform-function-name',         opts),
-    loadPlugin(context, '@babel/plugin-transform-literals',              opts),
-    loadPlugin(context, '@babel/plugin-transform-parameters',            opts),
-    loadPlugin(context, '@babel/plugin-transform-shorthand-properties',  opts),
-    loadPlugin(context, '@babel/plugin-transform-react-jsx',             opts),
-    loadPlugin(context, './transforms/transform-react-jsx-properties',   opts),
-    loadPlugin(context, '@babel/plugin-transform-regenerator',           opts),
-    loadPlugin(context, '@babel/plugin-transform-sticky-regex',          opts),
-    loadPlugin(context, '@babel/plugin-transform-unicode-regex',         opts)
+    loadPlugin(context, '@babel/plugin-transform-flow-strip-types',           opts),
+    loadPlugin(context, '@babel/plugin-proposal-class-properties',            opts),
+    loadPlugin(context, '@babel/plugin-syntax-dynamic-import',                opts),
+    loadPlugin(context, '@babel/plugin-syntax-export-default-from',           opts),
+    loadPlugin(context, '@babel/plugin-transform-computed-properties',        opts),
+    loadPlugin(context, '@babel/plugin-transform-destructuring',              opts),
+    loadPlugin(context, '@babel/plugin-transform-function-name',              opts),
+    loadPlugin(context, '@babel/plugin-transform-literals',                   opts),
+    loadPlugin(context, '@babel/plugin-transform-parameters',                 opts),
+    loadPlugin(context, '@babel/plugin-transform-shorthand-properties',       opts),
+    loadPlugin(context, 'babel-plugin-transform-react-ameliorate-jsx',        opts),
+    loadPlugin(context, './transforms/transform-react-jsx-properties',        opts),
+    loadPlugin(context, '@babel/plugin-transform-regenerator',                opts),
+    loadPlugin(context, '@babel/plugin-transform-sticky-regex',               opts),
+    loadPlugin(context, '@babel/plugin-transform-unicode-regex',              opts)
   ];
 
   return defaultPlugins.filter(Boolean);

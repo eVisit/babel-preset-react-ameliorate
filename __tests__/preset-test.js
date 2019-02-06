@@ -61,7 +61,7 @@ describe('babel-preset-react-ameliorate', function () {
   it('should work with plugin options', async function() {
     var result = await transformFile('test01', {
       pluginOptions: {
-        '@babel/plugin-transform-react-jsx': {
+        'babel-plugin-transform-react-ameliorate-jsx': {
           pragma: '__somethingElseBro(this)'
         }
       }
