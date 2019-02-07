@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-react-ameliorate",
-  "version": "0.51.1",
+  "version": "0.51.2",
   "description": "Babel preset for react-ameliorate",
   "main": "src/index.js",
   "private": false,
